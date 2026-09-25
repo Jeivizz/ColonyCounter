@@ -10,7 +10,7 @@ RSZ_COEF = 0.2 # Resizing coefficient
 BORDER_SHRINK = 0.91 # Remove the petri plate border
 TARGET_DIAM = 1000
 
-img = cv2.imread("./data/test2.jpeg")
+img = cv2.imread("./data/test.jpg")
 
 
 def find_petri(img):
@@ -96,13 +96,14 @@ def treat_img(img):
 
     circles  = np.round(circles[0, :]).astype("int")
 
+    cont = 0;
     for (x, y, r) in circles:
-
         cv2.circle(output, (x, y), r, (255, 0, 0), 4)
+        cont += 1
 
-    count = str(circles.size)
-    cv2.putText(output, count, (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 1)
 
+    contStr = str(cont) + ' Colonies'
+    cv2.putText(output, contStr, (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
     return output
 
 crop, mask = crop_petri(img)
